@@ -13,19 +13,18 @@ import Result
 import ObjectMapper
 
 extension Zendesk {
-    public func tickets() -> Signal<Ticket, AnyError> {
+    public func tickets() -> Signal<[Ticket], AnyError> {
         
-        let (signal, observer) = Signal<Ticket, AnyError>.pipe()
+        let (signal, observer) = Signal<[Ticket], AnyError>.pipe()
         
         self.api.request(TicketRequest.list(sort: nil, order: nil)).responseJSON { response in
             if response.result.isSuccess {
                 if let json = response.result.value as? [String: AnyObject] {
                     if let tickets = json["tickets"] as? Array<[String: AnyObject]> {
                         let mapper = Mapper<Ticket>()
+                        
                         if let mappedTickets = mapper.mapArray(JSONArray: tickets) {
-                            for (_, ticket) in mappedTickets.enumerated() {
-                                observer.send(value: ticket)
-                            }
+                            observer.send(value: mappedTickets)
                         }
                     }
                 }
