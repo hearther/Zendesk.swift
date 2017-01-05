@@ -32,13 +32,13 @@ public enum TicketStatus: String {
     case Closed = "closed"
 }
 
-public class Ticket: Mappable {
+public class Ticket: NSObject, Mappable {
     public var id: Int?
     public var url: URL?
     public var externalId: String?
     public var type: TicketType?
     public var subject: String?
-    public var description: String?
+    public var desc: String?
     public var priority: TicketPriority?
     public var status: TicketStatus?
     public var recipient: String?
@@ -62,7 +62,7 @@ public class Ticket: Mappable {
         externalId <- map["external_id"]
         type <- (map["type"], EnumTransform<TicketType>())
         subject <- map["subject"]
-        description <- map["description"]
+        desc <- map["description"]
         priority <- (map["priority"], EnumTransform<TicketPriority>())
         status <- (map["status"], EnumTransform<TicketStatus>())
         recipient <- map["recipient"]
