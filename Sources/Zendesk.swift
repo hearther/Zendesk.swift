@@ -54,6 +54,22 @@ public protocol ZendeskURLRequestConvertable {
     func asURLRequest(client: ZendeskAPI) throws -> URLRequest
 }
 
+extension ZendeskURLRequestConvertable {
+    func sortParams(_ sort: String?, _ order: RequestOrder?) -> Parameters {
+        var params = Parameters()
+        
+        if (sort != nil) {
+            params["sort_by"] = sort
+        }
+        
+        if (order != nil) {
+            params["sort_order"] = order
+        }
+        
+        return params
+    }
+}
+
 public enum RequestOrder: String {
     case Asc = "asc"
     case Desc = "desc"

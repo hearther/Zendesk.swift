@@ -1,37 +1,34 @@
 //
-//  TicketsRequest.swift
+//  ViewsRequest.swift
 //  Zendesk
 //
-//  Created by Adam Holt on 05/01/2017.
+//  Created by Adam Holt on 09/01/2017.
 //  Copyright © 2017 GitHub. All rights reserved.
 //
 
 import Foundation
+
 import Alamofire
 import ReactiveSwift
 import Result
 import ObjectMapper
 
 extension Zendesk {
-    public func tickets(_ view: TicketView) -> Signal<[Ticket], AnyError> {
-        return self.getTickets(endpoint: TicketRequest.viewList(view: view, sort: nil, order: nil))
+    public func views() -> Signal<[TicketView], AnyError> {
+        return self.getViews(endpoint: ViewsRequest.list(sort: nil, order: nil))
     }
     
-    public func tickets() -> Signal<[Ticket], AnyError> {
-        return self.getTickets(endpoint: TicketRequest.list(sort: nil, order: nil))
-    }
-    
-    func getTickets(endpoint: TicketRequest) -> Signal<[Ticket], AnyError> {
-        let (signal, observer) = Signal<[Ticket], AnyError>.pipe()
+    func getViews(endpoint: ViewsRequest) -> Signal<[TicketView], AnyError> {
+        let (signal, observer) = Signal<[TicketView], AnyError>.pipe()
         
         self.api.request(endpoint).responseJSON { response in
             if response.result.isSuccess {
                 if let json = response.result.value as? [String: AnyObject] {
-                    if let tickets = json["tickets"] as? Array<[String: AnyObject]> {
-                        let mapper = Mapper<Ticket>()
+                    if let views = json["views"] as? Array<[String: AnyObject]> {
+                        let mapper = Mapper<TicketView>()
                         
-                        if let mappedTickets = mapper.mapArray(JSONArray: tickets) {
-                            observer.send(value: mappedTickets)
+                        if let mappedViews = mapper.mapArray(JSONArray: views) {
+                            observer.send(value: mappedViews)
                         }
                     }
                 }
@@ -48,15 +45,12 @@ extension Zendesk {
     }
 }
 
-public enum TicketRequest: ZendeskURLRequestConvertable {
+public enum ViewsRequest: ZendeskURLRequestConvertable {
     case list(sort:String?, order: RequestOrder?)
-    case viewList(view: TicketView, sort: String?, order: RequestOrder?)
     
     var method: HTTPMethod {
         switch self {
         case .list:
-            return .get
-        default:
             return .get
         }
     }
@@ -64,9 +58,7 @@ public enum TicketRequest: ZendeskURLRequestConvertable {
     var path: String {
         switch self {
         case .list:
-            return "/tickets"
-        case .viewList(let view, _, _):
-            return "/views/\(view.remoteId)/tickets"
+            return "/views"
         }
     }
     
@@ -78,8 +70,6 @@ public enum TicketRequest: ZendeskURLRequestConvertable {
         
         switch self {
         case .list(let sort, let order):
-            urlRequest = try URLEncoding.default.encode(urlRequest, with: sortParams(sort, order))
-        case .viewList(_, let sort, let order):
             urlRequest = try URLEncoding.default.encode(urlRequest, with: sortParams(sort, order))
         }
         
