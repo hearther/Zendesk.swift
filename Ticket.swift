@@ -33,7 +33,7 @@ public enum TicketStatus: String {
 }
 
 public class Ticket: NSObject, Mappable {
-    public var id: Int?
+    public var remoteId: Int?
     public var url: URL?
     public var externalId: String?
     public var type: TicketType?
@@ -57,7 +57,7 @@ public class Ticket: NSObject, Mappable {
     }
     
     public func mapping(map: Map) {
-        id <- map["id"]
+        remoteId <- map["id"]
         url <- (map["url"], URLTransform())
         externalId <- map["external_id"]
         type <- (map["type"], EnumTransform<TicketType>())

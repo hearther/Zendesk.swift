@@ -13,11 +13,18 @@ import Result
 import ObjectMapper
 
 extension Zendesk {
+    public func tickets(_ view: TicketView) -> Signal<[Ticket], AnyError> {
+        return self.getTickets(endpoint: TicketRequest.viewList(view: view, sort: nil, order: nil))
+    }
+    
     public func tickets() -> Signal<[Ticket], AnyError> {
-        
+        return self.getTickets(endpoint: TicketRequest.list(sort: nil, order: nil))
+    }
+    
+    func getTickets(endpoint: TicketRequest) -> Signal<[Ticket], AnyError> {
         let (signal, observer) = Signal<[Ticket], AnyError>.pipe()
         
-        self.api.request(TicketRequest.list(sort: nil, order: nil)).responseJSON { response in
+        self.api.request(endpoint).responseJSON { response in
             if response.result.isSuccess {
                 if let json = response.result.value as? [String: AnyObject] {
                     if let tickets = json["tickets"] as? Array<[String: AnyObject]> {
@@ -43,10 +50,13 @@ extension Zendesk {
 
 public enum TicketRequest: ZendeskURLRequestConvertable {
     case list(sort:String?, order: RequestOrder?)
+    case viewList(view: TicketView, sort: String?, order: RequestOrder?)
     
     var method: HTTPMethod {
         switch self {
         case .list:
+            return .get
+        default:
             return .get
         }
     }
@@ -55,6 +65,8 @@ public enum TicketRequest: ZendeskURLRequestConvertable {
         switch self {
         case .list:
             return "/tickets"
+        case .viewList(let view, _, _):
+            return "/views/\(view.remoteId)/tickets"
         }
     }
     
@@ -66,6 +78,8 @@ public enum TicketRequest: ZendeskURLRequestConvertable {
         
         switch self {
         case .list(let sort, let order):
+            urlRequest = try URLEncoding.default.encode(urlRequest, with: sortParams(sort, order))
+        case .viewList(_, let sort, let order):
             urlRequest = try URLEncoding.default.encode(urlRequest, with: sortParams(sort, order))
         }
         
