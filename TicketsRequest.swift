@@ -66,7 +66,7 @@ public enum TicketRequest: ZendeskURLRequestConvertable {
         case .list:
             return "/tickets"
         case .viewList(let view, _, _):
-            return "/views/\(view.remoteId)/tickets"
+            return "/views/\(view.remoteId!)/tickets"
         }
     }
     
