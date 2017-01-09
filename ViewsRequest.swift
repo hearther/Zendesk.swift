@@ -15,34 +15,9 @@ import ObjectMapper
 
 extension Zendesk {
     public func views() -> Signal<[TicketView], AnyError> {
-        return self.getViews(endpoint: ViewsRequest.list(sort: nil, order: nil))
+        return self.collectionRequest(endpoint: ViewsRequest.list(sort: nil, order: nil), rootElement: "views")
     }
     
-    func getViews(endpoint: ViewsRequest) -> Signal<[TicketView], AnyError> {
-        let (signal, observer) = Signal<[TicketView], AnyError>.pipe()
-        
-        self.api.request(endpoint).responseJSON { response in
-            if response.result.isSuccess {
-                if let json = response.result.value as? [String: AnyObject] {
-                    if let views = json["views"] as? Array<[String: AnyObject]> {
-                        let mapper = Mapper<TicketView>()
-                        
-                        if let mappedViews = mapper.mapArray(JSONArray: views) {
-                            observer.send(value: mappedViews)
-                        }
-                    }
-                }
-            } else {
-                if response.result.error != nil {
-                    observer.send(error: AnyError(response.result.error!))
-                }
-            }
-            
-            observer.sendCompleted()
-        }
-        
-        return signal
-    }
 }
 
 public enum ViewsRequest: ZendeskURLRequestConvertable {

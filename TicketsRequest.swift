@@ -13,49 +13,26 @@ import Result
 import ObjectMapper
 
 extension Zendesk {
+    public func ticket(_ id: Int) -> Signal<Ticket, AnyError> {
+        return self.resourceRequest(endpoint: TicketRequest.show(id: id), rootElement: "ticket")
+    }
+    
     public func tickets(_ view: TicketView) -> Signal<[Ticket], AnyError> {
-        return self.getTickets(endpoint: TicketRequest.viewList(view: view, sort: nil, order: nil))
+        return self.collectionRequest(endpoint: TicketRequest.viewList(view: view, sort: nil, order: nil), rootElement: "tickets")
     }
     
     public func tickets() -> Signal<[Ticket], AnyError> {
-        return self.getTickets(endpoint: TicketRequest.list(sort: nil, order: nil))
-    }
-    
-    func getTickets(endpoint: TicketRequest) -> Signal<[Ticket], AnyError> {
-        let (signal, observer) = Signal<[Ticket], AnyError>.pipe()
-        
-        self.api.request(endpoint).responseJSON { response in
-            if response.result.isSuccess {
-                if let json = response.result.value as? [String: AnyObject] {
-                    if let tickets = json["tickets"] as? Array<[String: AnyObject]> {
-                        let mapper = Mapper<Ticket>()
-                        
-                        if let mappedTickets = mapper.mapArray(JSONArray: tickets) {
-                            observer.send(value: mappedTickets)
-                        }
-                    }
-                }
-            } else {
-                if response.result.error != nil {
-                    observer.send(error: AnyError(response.result.error!))
-                }
-            }
-            
-            observer.sendCompleted()
-        }
-        
-        return signal
+        return self.collectionRequest(endpoint: TicketRequest.list(sort: nil, order: nil), rootElement: "tickets")
     }
 }
 
 public enum TicketRequest: ZendeskURLRequestConvertable {
+    case show(id: Int)
     case list(sort:String?, order: RequestOrder?)
     case viewList(view: TicketView, sort: String?, order: RequestOrder?)
     
     var method: HTTPMethod {
         switch self {
-        case .list:
-            return .get
         default:
             return .get
         }
@@ -63,6 +40,8 @@ public enum TicketRequest: ZendeskURLRequestConvertable {
     
     var path: String {
         switch self {
+        case .show(let id):
+            return "/tickets/\(id)"
         case .list:
             return "/tickets"
         case .viewList(let view, _, _):
@@ -81,6 +60,8 @@ public enum TicketRequest: ZendeskURLRequestConvertable {
             urlRequest = try URLEncoding.default.encode(urlRequest, with: sortParams(sort, order))
         case .viewList(_, let sort, let order):
             urlRequest = try URLEncoding.default.encode(urlRequest, with: sortParams(sort, order))
+        default:
+            break
         }
         
         return urlRequest

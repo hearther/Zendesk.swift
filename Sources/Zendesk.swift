@@ -24,13 +24,66 @@
 
 import Foundation
 import ReactiveSwift
+import Result
 import Alamofire
+import ObjectMapper
 
 public class Zendesk {
     let api: ZendeskAPI
     
     public required init(api: ZendeskAPI) {
         self.api = api
+    }
+    
+    func collectionRequest<T: Mappable>(endpoint: ZendeskURLRequestConvertable, rootElement:String) -> Signal<[T], AnyError> {
+        let (signal, observer) = Signal<[T], AnyError>.pipe()
+        
+        self.api.request(endpoint).responseJSON { response in
+            if response.result.isSuccess {
+                if let json = response.result.value as? [String: AnyObject] {
+                    if let resources = json[rootElement] as? Array<[String: AnyObject]> {
+                        let mapper = Mapper<T>()
+                        
+                        if let mappedResources = mapper.mapArray(JSONArray: resources) {
+                            observer.send(value: mappedResources)
+                        }
+                    }
+                }
+            } else {
+                if response.result.error != nil {
+                    observer.send(error: AnyError(response.result.error!))
+                }
+            }
+            
+            observer.sendCompleted()
+        }
+        
+        return signal
+    }
+    
+    func resourceRequest<T: Mappable>(endpoint: ZendeskURLRequestConvertable, rootElement: String) -> Signal<T, AnyError> {
+        let (signal, observer) = Signal<T, AnyError>.pipe()
+        
+        self.api.request(endpoint).responseJSON { response in
+            if response.result.isSuccess {
+                if let json = response.result.value as? [String: AnyObject] {
+                    if let resource = json[rootElement] as? [String: AnyObject] {
+                        let mapper = Mapper<T>()
+                        if let mappedResource = mapper.map(JSONObject: resource) {
+                            observer.send(value: mappedResource)
+                        }
+                    }
+                }
+            } else {
+                if response.result.error != nil {
+                    observer.send(error: AnyError(response.result.error!))
+                }
+            }
+            
+            observer.sendCompleted()
+        }
+        
+        return signal
     }
 }
 
