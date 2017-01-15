@@ -14,6 +14,10 @@
 		8C3C75D31E23B4F3001D09CA /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C75D11E23B4F3001D09CA /* View.swift */; };
 		8C3C75D51E23DEE1001D09CA /* ViewsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C75D41E23DEE1001D09CA /* ViewsRequest.swift */; };
 		8C3C75D61E23DEE1001D09CA /* ViewsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C75D41E23DEE1001D09CA /* ViewsRequest.swift */; };
+		8C3C75E81E2C19BA001D09CA /* TicketComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C75E71E2C19BA001D09CA /* TicketComment.swift */; };
+		8C3C75E91E2C19BA001D09CA /* TicketComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C75E71E2C19BA001D09CA /* TicketComment.swift */; };
+		8C3C75EB1E2C1CFF001D09CA /* TicketCommentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C75EA1E2C1CFF001D09CA /* TicketCommentsRequest.swift */; };
+		8C3C75EC1E2C1CFF001D09CA /* TicketCommentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C75EA1E2C1CFF001D09CA /* TicketCommentsRequest.swift */; };
 		8C8D509B1E1D63F800F8033E /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8D50981E1D63F800F8033E /* ReactiveSwift.framework */; };
 		8C8D509C1E1D63F800F8033E /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8D50991E1D63F800F8033E /* Result.framework */; };
 		8C8D50A11E1D640000F8033E /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8D509E1E1D640000F8033E /* ReactiveSwift.framework */; };
@@ -81,6 +85,8 @@
 		52D6DA0F1BF000BD002C0205 /* Zendesk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Zendesk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C3C75D11E23B4F3001D09CA /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		8C3C75D41E23DEE1001D09CA /* ViewsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewsRequest.swift; sourceTree = "<group>"; };
+		8C3C75E71E2C19BA001D09CA /* TicketComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketComment.swift; sourceTree = "<group>"; };
+		8C3C75EA1E2C1CFF001D09CA /* TicketCommentsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketCommentsRequest.swift; sourceTree = "<group>"; };
 		8C8D50801E1D573B00F8033E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		8C8D50821E1D574300F8033E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 		8C8D50841E1D574B00F8033E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -247,6 +253,7 @@
 			children = (
 				8C8D50C21E1E981100F8033E /* TicketsRequest.swift */,
 				8C3C75D41E23DEE1001D09CA /* ViewsRequest.swift */,
+				8C3C75EA1E2C1CFF001D09CA /* TicketCommentsRequest.swift */,
 			);
 			name = Requests;
 			sourceTree = "<group>";
@@ -256,6 +263,7 @@
 			children = (
 				8C8D50D31E1EE2DB00F8033E /* Ticket.swift */,
 				8C3C75D11E23B4F3001D09CA /* View.swift */,
+				8C3C75E71E2C19BA001D09CA /* TicketComment.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -476,7 +484,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C3C75D21E23B4F3001D09CA /* View.swift in Sources */,
+				8C3C75E81E2C19BA001D09CA /* TicketComment.swift in Sources */,
 				52D6D9981BEFF375002C0205 /* Zendesk.swift in Sources */,
+				8C3C75EB1E2C1CFF001D09CA /* TicketCommentsRequest.swift in Sources */,
 				8C3C75D51E23DEE1001D09CA /* ViewsRequest.swift in Sources */,
 				8C8D50D61E1EE82000F8033E /* Ticket.swift in Sources */,
 				8C8D50C31E1E981100F8033E /* TicketsRequest.swift in Sources */,
@@ -497,7 +507,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C3C75D31E23B4F3001D09CA /* View.swift in Sources */,
+				8C3C75E91E2C19BA001D09CA /* TicketComment.swift in Sources */,
 				52D6DA261BF00118002C0205 /* Zendesk.swift in Sources */,
+				8C3C75EC1E2C1CFF001D09CA /* TicketCommentsRequest.swift in Sources */,
 				8C3C75D61E23DEE1001D09CA /* ViewsRequest.swift in Sources */,
 				8C8D50D41E1EE2DB00F8033E /* Ticket.swift in Sources */,
 				8C8D50C41E1E981100F8033E /* TicketsRequest.swift in Sources */,
