@@ -35,55 +35,61 @@ public class Zendesk {
         self.api = api
     }
     
-    func collectionRequest<T: Mappable>(endpoint: ZendeskURLRequestConvertable, rootElement:String) -> Signal<[T], AnyError> {
-        let (signal, observer) = Signal<[T], AnyError>.pipe()
-        
-        self.api.request(endpoint).responseJSON { response in
-            if response.result.isSuccess {
-                if let json = response.result.value as? [String: AnyObject] {
-                    if let resources = json[rootElement] as? Array<[String: AnyObject]> {
-                        let mapper = Mapper<T>()
-                        
-                        if let mappedResources = mapper.mapArray(JSONArray: resources) {
-                            observer.send(value: mappedResources)
+    func collectionRequest<T: Mappable>(endpoint: ZendeskURLRequestConvertable, rootElement:String) -> SignalProducer<T, AnyError> {
+        return SignalProducer { observer, disposable in
+            let request = self.api.request(endpoint).responseJSON { response in
+                if response.result.isSuccess {
+                    if let json = response.result.value as? [String: AnyObject] {
+                        if let resources = json[rootElement] as? Array<[String: AnyObject]> {
+                            let mapper = Mapper<T>()
+                            
+                            if let mappedResources = mapper.mapArray(JSONArray: resources) {
+                                for (_, mappedResource) in mappedResources.enumerated() {
+                                    observer.send(value: mappedResource)
+                                }
+                            }
                         }
                     }
+                } else {
+                    if response.result.error != nil {
+                        observer.send(error: AnyError(response.result.error!))
+                    }
                 }
-            } else {
-                if response.result.error != nil {
-                    observer.send(error: AnyError(response.result.error!))
-                }
+                
+                observer.sendCompleted()
             }
             
-            observer.sendCompleted()
+            disposable.add {
+                request.cancel()
+            }
         }
-        
-        return signal
     }
     
-    func resourceRequest<T: Mappable>(endpoint: ZendeskURLRequestConvertable, rootElement: String) -> Signal<T, AnyError> {
-        let (signal, observer) = Signal<T, AnyError>.pipe()
-        
-        self.api.request(endpoint).responseJSON { response in
-            if response.result.isSuccess {
-                if let json = response.result.value as? [String: AnyObject] {
-                    if let resource = json[rootElement] as? [String: AnyObject] {
-                        let mapper = Mapper<T>()
-                        if let mappedResource = mapper.map(JSONObject: resource) {
-                            observer.send(value: mappedResource)
+    func resourceRequest<T: Mappable>(endpoint: ZendeskURLRequestConvertable, rootElement: String) -> SignalProducer<T, AnyError> {
+        return SignalProducer { (observer, disposable) in
+            let request = self.api.request(endpoint).responseJSON { response in
+                if response.result.isSuccess {
+                    if let json = response.result.value as? [String: AnyObject] {
+                        if let resource = json[rootElement] as? [String: AnyObject] {
+                            let mapper = Mapper<T>()
+                            if let mappedResource = mapper.map(JSONObject: resource) {
+                                observer.send(value: mappedResource)
+                            }
                         }
                     }
+                } else {
+                    if response.result.error != nil {
+                        observer.send(error: AnyError(response.result.error!))
+                    }
                 }
-            } else {
-                if response.result.error != nil {
-                    observer.send(error: AnyError(response.result.error!))
-                }
+                
+                observer.sendCompleted()
             }
             
-            observer.sendCompleted()
+            disposable.add {
+                request.cancel()
+            }
         }
-        
-        return signal
     }
 }
 

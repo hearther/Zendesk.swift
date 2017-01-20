@@ -13,15 +13,15 @@ import Result
 import ObjectMapper
 
 extension Zendesk {
-    public func ticket(_ id: Int) -> Signal<Ticket, AnyError> {
+    public func ticket(_ id: Int) -> SignalProducer<Ticket, AnyError> {
         return self.resourceRequest(endpoint: TicketRequest.show(id: id), rootElement: "ticket")
     }
     
-    public func tickets(_ view: TicketView) -> Signal<[Ticket], AnyError> {
+    public func tickets(_ view: TicketView) -> SignalProducer<Ticket, AnyError> {
         return self.collectionRequest(endpoint: TicketRequest.viewList(view: view, sort: nil, order: nil), rootElement: "tickets")
     }
     
-    public func tickets() -> Signal<[Ticket], AnyError> {
+    public func tickets() -> SignalProducer<Ticket, AnyError> {
         return self.collectionRequest(endpoint: TicketRequest.list(sort: nil, order: nil), rootElement: "tickets")
     }
 }

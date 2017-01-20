@@ -13,7 +13,7 @@ import Result
 import ObjectMapper
 
 extension Zendesk {
-    public func ticketComments(ticket: Ticket) -> Signal<[TicketComment], AnyError> {
+    public func ticketComments(ticket: Ticket) -> SignalProducer<TicketComment, AnyError> {
         return self.collectionRequest(endpoint: TicketCommentRequest.list(ticket: ticket, sort: nil, order: nil), rootElement: "comments")
     }
 }
