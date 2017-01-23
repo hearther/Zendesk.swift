@@ -31,7 +31,7 @@ public enum TicketCommentRequest: ZendeskURLRequestConvertable {
     var path: String {
         switch self {
         case .list(let ticket, _, _):
-            return "/tickets/\(ticket.remoteId)/comments"
+            return "/tickets/\(ticket.remoteId!)/comments"
         }
     }
     
