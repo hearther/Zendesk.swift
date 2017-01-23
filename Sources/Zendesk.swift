@@ -105,6 +105,8 @@ public class ZendeskAPI {
     }
     
     public func request(_ resource: ZendeskURLRequestConvertable) -> DataRequest {
+        debugPrint(resource)
+        
         return Alamofire.request(ZendeskRequest(client: self, request: resource)).authenticate(user: "\(self.username)/token", password: self.token)
     }
 }
