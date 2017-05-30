@@ -42,11 +42,10 @@ public class Zendesk {
                     if let json = response.result.value as? [String: AnyObject] {
                         if let resources = json[rootElement] as? Array<[String: AnyObject]> {
                             let mapper = Mapper<T>()
+                            let mappedResources = mapper.mapArray(JSONArray: resources)
                             
-                            if let mappedResources = mapper.mapArray(JSONArray: resources) {
-                                for (_, mappedResource) in mappedResources.enumerated() {
-                                    observer.send(value: mappedResource)
-                                }
+                            for (_, mappedResource) in mappedResources.enumerated() {
+                                observer.send(value: mappedResource)
                             }
                         }
                     }
