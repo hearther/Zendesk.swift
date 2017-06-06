@@ -55,6 +55,8 @@ public enum TicketRequest: ZendeskURLRequestConvertable {
         var urlRequest = URLRequest(url: url.appendingPathComponent(path))
         urlRequest.httpMethod = method.rawValue
         
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+
         switch self {
         case .list(let sort, let order):
             urlRequest = try URLEncoding.default.encode(urlRequest, with: sortParams(sort, order))
