@@ -18,20 +18,26 @@ extension Zendesk {
         return self.collectionRequest(endpoint: ViewsRequest.list(sort: nil, order: nil), rootElement: "views")
     }
     
+    public func view(id: Int) -> SignalProducer<TicketView, AnyError> {
+        return self.resourceRequest(endpoint: ViewsRequest.show(id: id), rootElement: "view")
+    }
 }
 
 public enum ViewsRequest: ZendeskURLRequestConvertable {
+    case show(id: Int)
     case list(sort:String?, order: RequestOrder?)
     
     var method: HTTPMethod {
         switch self {
-        case .list:
+        case .show, .list:
             return .get
         }
     }
     
     var path: String {
         switch self {
+        case .show(let id):
+            return "/views/\(id)"
         case .list:
             return "/views"
         }
@@ -46,6 +52,8 @@ public enum ViewsRequest: ZendeskURLRequestConvertable {
         switch self {
         case .list(let sort, let order):
             urlRequest = try URLEncoding.default.encode(urlRequest, with: sortParams(sort, order))
+        default:
+            break
         }
         
         return urlRequest
