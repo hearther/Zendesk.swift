@@ -35,7 +35,7 @@ public class Zendesk {
         self.api = api
     }
     
-    func collectionRequest<T: Mappable>(endpoint: ZendeskURLRequestConvertable, rootElement:String) -> SignalProducer<T, AnyError> {
+    func collectionRequest<T: Mappable>(endpoint: ZendeskURLRequestConvertable, rootElement:String) -> SignalProducer<[T], AnyError> {
         return SignalProducer { observer, disposable in
             let request = self.api.request(endpoint).responseJSON { response in
                 if response.result.isSuccess {
@@ -43,10 +43,7 @@ public class Zendesk {
                         if let resources = json[rootElement] as? Array<[String: AnyObject]> {
                             let mapper = Mapper<T>()
                             let mappedResources = mapper.mapArray(JSONArray: resources)
-                            
-                            for (_, mappedResource) in mappedResources.enumerated() {
-                                observer.send(value: mappedResource)
-                            }
+                            observer.send(value: mappedResources)
                         }
                     }
                 } else {

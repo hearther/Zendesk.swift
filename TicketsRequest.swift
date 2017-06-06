@@ -17,11 +17,11 @@ extension Zendesk {
         return self.resourceRequest(endpoint: TicketRequest.show(id: id), rootElement: "ticket")
     }
     
-    public func tickets(_ view: TicketView) -> SignalProducer<Ticket, AnyError> {
+    public func tickets(_ view: TicketView) -> SignalProducer<[Ticket], AnyError> {
         return self.collectionRequest(endpoint: TicketRequest.viewList(view: view, sort: nil, order: nil), rootElement: "tickets")
     }
     
-    public func tickets() -> SignalProducer<Ticket, AnyError> {
+    public func tickets() -> SignalProducer<[Ticket], AnyError> {
         return self.collectionRequest(endpoint: TicketRequest.list(sort: nil, order: nil), rootElement: "tickets")
     }
 }

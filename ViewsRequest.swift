@@ -14,7 +14,7 @@ import Result
 import ObjectMapper
 
 extension Zendesk {
-    public func views() -> SignalProducer<TicketView, AnyError> {
+    public func views() -> SignalProducer<[TicketView], AnyError> {
         return self.collectionRequest(endpoint: ViewsRequest.list(sort: nil, order: nil), rootElement: "views")
     }
     
