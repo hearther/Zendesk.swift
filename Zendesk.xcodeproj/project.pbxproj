@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		52D6D9981BEFF375002C0205 /* Zendesk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6D9961BEFF375002C0205 /* Zendesk.swift */; };
-		52D6D99B1BEFF375002C0205 /* ZendeskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6D9971BEFF375002C0205 /* ZendeskTests.swift */; };
 		52D6DA261BF00118002C0205 /* Zendesk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6D9961BEFF375002C0205 /* Zendesk.swift */; };
 		8C3C75D21E23B4F3001D09CA /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C75D11E23B4F3001D09CA /* View.swift */; };
 		8C3C75D31E23B4F3001D09CA /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C75D11E23B4F3001D09CA /* View.swift */; };
@@ -28,8 +27,6 @@
 		8C8D50B71E1D6CC000F8033E /* ReactiveSwift.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8C8D50B51E1D6CC000F8033E /* ReactiveSwift.framework.dSYM */; };
 		8C8D50B81E1D6CC000F8033E /* Result.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8C8D50B61E1D6CC000F8033E /* Result.framework.dSYM */; };
 		8C8D50BB1E1D6CFA00F8033E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8D50801E1D573B00F8033E /* Alamofire.framework */; };
-		8C8D50BE1E1D84A700F8033E /* ZendeskAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8D50BD1E1D84A700F8033E /* ZendeskAPITests.swift */; };
-		8C8D50BF1E1D84A700F8033E /* ZendeskAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8D50BD1E1D84A700F8033E /* ZendeskAPITests.swift */; };
 		8C8D50C01E1E693F00F8033E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8D50821E1D574300F8033E /* Alamofire.framework */; };
 		8C8D50C31E1E981100F8033E /* TicketsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8D50C21E1E981100F8033E /* TicketsRequest.swift */; };
 		8C8D50C41E1E981100F8033E /* TicketsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8D50C21E1E981100F8033E /* TicketsRequest.swift */; };
@@ -40,7 +37,6 @@
 		8C8D50CD1E1EA8EA00F8033E /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8D50991E1D63F800F8033E /* Result.framework */; };
 		8C8D50D41E1EE2DB00F8033E /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8D50D31E1EE2DB00F8033E /* Ticket.swift */; };
 		8C8D50D61E1EE82000F8033E /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8D50D31E1EE2DB00F8033E /* Ticket.swift */; };
-		DD7502861C68FDDC006590AF /* ZendeskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6D9971BEFF375002C0205 /* ZendeskTests.swift */; };
 		DD7502881C68FEDE006590AF /* Zendesk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6DA0F1BF000BD002C0205 /* Zendesk.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,7 +77,6 @@
 		52D6D97C1BEFF229002C0205 /* Zendesk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Zendesk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9861BEFF229002C0205 /* Zendesk-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Zendesk-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9961BEFF375002C0205 /* Zendesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Zendesk.swift; path = Sources/Zendesk.swift; sourceTree = "<group>"; };
-		52D6D9971BEFF375002C0205 /* ZendeskTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZendeskTests.swift; path = Tests/ZendeskTests/ZendeskTests.swift; sourceTree = "<group>"; };
 		52D6DA0F1BF000BD002C0205 /* Zendesk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Zendesk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C3C75D11E23B4F3001D09CA /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		8C3C75D41E23DEE1001D09CA /* ViewsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewsRequest.swift; sourceTree = "<group>"; };
@@ -111,7 +106,6 @@
 		8C8D50B31E1D6CB500F8033E /* Alamofire.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Alamofire.framework.dSYM; path = Carthage/Build/Mac/Alamofire.framework.dSYM; sourceTree = "<group>"; };
 		8C8D50B51E1D6CC000F8033E /* ReactiveSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ReactiveSwift.framework.dSYM; path = Carthage/Build/Mac/ReactiveSwift.framework.dSYM; sourceTree = "<group>"; };
 		8C8D50B61E1D6CC000F8033E /* Result.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Result.framework.dSYM; path = Carthage/Build/Mac/Result.framework.dSYM; sourceTree = "<group>"; };
-		8C8D50BD1E1D84A700F8033E /* ZendeskAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZendeskAPITests.swift; sourceTree = "<group>"; };
 		8C8D50C21E1E981100F8033E /* TicketsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketsRequest.swift; sourceTree = "<group>"; };
 		8C8D50C51E1EA00900F8033E /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/Mac/ObjectMapper.framework; sourceTree = "<group>"; };
 		8C8D50C91E1EA02800F8033E /* ObjectMapper.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ObjectMapper.framework.dSYM; path = Carthage/Build/Mac/ObjectMapper.framework.dSYM; sourceTree = "<group>"; };
@@ -172,8 +166,6 @@
 				8C8D50D51E1EE2DE00F8033E /* Models */,
 				8C8D50C11E1E97F800F8033E /* Requests */,
 				52D6D9961BEFF375002C0205 /* Zendesk.swift */,
-				52D6D9971BEFF375002C0205 /* ZendeskTests.swift */,
-				8C8D50BD1E1D84A700F8033E /* ZendeskAPITests.swift */,
 				52D6D99C1BEFF38C002C0205 /* Configs */,
 				52D6D97D1BEFF229002C0205 /* Products */,
 				8C8D507F1E1D573B00F8033E /* Frameworks */,
@@ -497,8 +489,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52D6D99B1BEFF375002C0205 /* ZendeskTests.swift in Sources */,
-				8C8D50BE1E1D84A700F8033E /* ZendeskAPITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,8 +510,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD7502861C68FDDC006590AF /* ZendeskTests.swift in Sources */,
-				8C8D50BF1E1D84A700F8033E /* ZendeskAPITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
