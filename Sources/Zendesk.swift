@@ -55,7 +55,7 @@ public class Zendesk {
                 observer.sendCompleted()
             }
             
-            disposable.add {
+            disposable.observeEnded {
                 request.cancel()
             }
         }
@@ -82,7 +82,7 @@ public class Zendesk {
                 observer.sendCompleted()
             }
             
-            disposable.add {
+            disposable.observeEnded {
                 request.cancel()
             }
         }
